@@ -1,7 +1,21 @@
 import { combineReducers } from 'redux';
 
-export const reducerHolder = (state = 0, action) => state;
+const initialStates = {
+  stageSprite: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/3f3a3831234507.564a1d2338123.gif',
+  stageHeight: 0
+};
+
+export const mainReducer = (state = initialStates, action) => {
+  switch (action.type) {
+    case 'SET_STAGE_SPRITE':
+      return { ...state, stageSprite: action.payload };
+    case 'SET_STAGE_HEIGHT':
+      return { ...state, stageHeight: action.payload };
+    default:
+      return state;
+  }
+};
 
 export default combineReducers({
-  reducerHolder
+  mainReducer
 });

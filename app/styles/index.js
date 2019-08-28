@@ -31,7 +31,13 @@ const sectionSlider = {
     backgroundColor: "#fff",
     borderRadius: 500,
     flex: 1,
-    margin: 20
+    margin: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  secSliderImage: {
+    width: 100,
+    height: 100
   },
   secSliderArrowButton: {
     width: 30,
@@ -40,15 +46,18 @@ const sectionSlider = {
 };
 
 const backdrop = {
-    backdrop: {
-      ...common.flex_1
-    }
+  backdrop: {
+    ...common.flex_1
+  },
+  safeView: {
+    ...common.flex_1
+  }
 };
 
-const funcs = {
+const mixins = {
   makeTriangle(direction = 'up', size = 100, color = 'red') {
     let deg = '0deg';
-
+    size = parseFloat(size);
     switch (direction) {
       case 'up':
         deg = '0deg';
@@ -83,7 +92,7 @@ const funcs = {
 };
 
 export default StyleSheet.create({
-  ...funcs,
+  ...mixins,
   ...sectionSlider,
   ...backdrop
 });

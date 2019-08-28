@@ -6,6 +6,8 @@ import rootReducer from './app/reducers';
 
 import AppContainer from './app/screens/MainScreen';
 
+
+
 let store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default function App() {
