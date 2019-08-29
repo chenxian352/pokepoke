@@ -22,17 +22,18 @@ class HomeScreen extends Component {
               <View style={[styles.makeTriangle('right', '10', 'white')]} />
             </TouchableOpacity>
           </View>
+          <View style={styles.secPokeList}>
+            <Text>Test</Text>
+          </View>
         </SafeAreaView>
       </LinearGradient>
     )
   }
 }
 
-function mapStateToProps(state) {
-  const {stageSprite, stageHeight} = state;
-  console.log(state);
+const mapStateToProps = (state) => {
   return {stageSprite: state.mainReducer.stageSprite, stageHeight: state.mainReducer.stageHeight};
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {

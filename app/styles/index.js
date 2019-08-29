@@ -31,7 +31,6 @@ const sectionSlider = {
     backgroundColor: "#fff",
     borderRadius: 500,
     flex: 1,
-    margin: 20,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -45,12 +44,22 @@ const sectionSlider = {
   }
 };
 
+const sectionPokeList = {
+  secPokeList: {
+    ...common.flex_1,
+    backgroundColor: "red",
+    paddingLeft: 30,
+    paddingRight: 30
+  }
+};
+
 const backdrop = {
   backdrop: {
     ...common.flex_1
   },
   safeView: {
-    ...common.flex_1
+    ...common.flex_1,
+    display: "flex"
   }
 };
 
@@ -94,5 +103,6 @@ const mixins = {
 export default StyleSheet.create({
   ...mixins,
   ...sectionSlider,
+  ...sectionPokeList,
   ...backdrop
 });
