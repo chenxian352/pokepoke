@@ -48,8 +48,15 @@ const sectionPokeList = {
   secPokeList: {
     ...common.flex_1,
     backgroundColor: "red",
-    paddingLeft: 30,
-    paddingRight: 30
+    padding: 30
+  },
+  secPokeListItem: {
+    backgroundColor: "#FFF",
+    height: 60,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 10
   }
 };
 

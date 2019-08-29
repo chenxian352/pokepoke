@@ -23,7 +23,13 @@ class HomeScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.secPokeList}>
-            <Text>Test</Text>
+            <View style={styles.secPokeListItem}>
+              <Image style={{height: 50, width: 50}} source={{uri: this.props.stageSprite}}/>
+              <Text style={{flex: 1}}>Name</Text>
+              <View style={{paddingRight: 20}}>
+                <View style={[styles.makeTriangle('right', '10', 'black')]} />
+              </View>
+            </View>
           </View>
         </SafeAreaView>
       </LinearGradient>
