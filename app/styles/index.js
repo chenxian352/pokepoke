@@ -47,7 +47,6 @@ const sectionSlider = {
 const sectionPokeList = {
   secPokeList: {
     ...common.flex_1,
-    backgroundColor: "red",
     padding: 30
   },
   secPokeListItem: {
@@ -66,7 +65,8 @@ const backdrop = {
   },
   safeView: {
     ...common.flex_1,
-    display: "flex"
+    display: "flex",
+    paddingTop: 30
   }
 };
 

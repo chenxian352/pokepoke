@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { View, Image, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import styles from '../styles';
+import * as ActionCreators from '../actions'
 
 class HomeScreen extends Component {
+
+  componentWillMount() {
+    this.props.getPokemonList();
+  }
 
   render() {
     return(
@@ -15,7 +21,7 @@ class HomeScreen extends Component {
             <TouchableOpacity style={styles.secSliderArrowButton}>
               <View style={[styles.makeTriangle('left', '10', 'white')]} />
             </TouchableOpacity>
-            <View style={[styles.secSliderStage, {height: this.props.stageHeight}]} onLayout={(event) => this.props.setStageHeight(event)}>
+            <View style={[styles.secSliderStage, {height: this.props.stageHeight}]} onLayout={(event) => this.props.setStageHeight(event.nativeEvent.layout.width)}>
               <Image style={styles.secSliderImage} source={{uri: this.props.stageSprite}}/>
             </View>
             <TouchableOpacity style={styles.secSliderArrowButton}>
@@ -38,15 +44,16 @@ class HomeScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {stageSprite: state.mainReducer.stageSprite, stageHeight: state.mainReducer.stageHeight};
+  return {
+    stageSprite: state.mainReducer.stageSprite,
+    stageHeight: state.mainReducer.stageHeight,
+    pokemonList: state.mainReducer.pokemonList,
+    nextUrl: state.mainReducer.nextUrl
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    setStageHeight: (event) => {
-      dispatch({ type: 'SET_STAGE_HEIGHT', payload: event.nativeEvent.layout.width})
-    }
-  }
+  return bindActionCreators(ActionCreators, dispatch);
 };
 
 const HomeScreenContainer = connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
