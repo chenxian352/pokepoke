@@ -55,7 +55,8 @@ const sectionPokeList = {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 10
   }
 };
 

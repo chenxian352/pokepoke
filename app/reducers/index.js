@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import * as CONFIGS from '../configs'
 
 const initialStates = {
-  stageSprite: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/3f3a3831234507.564a1d2338123.gif',
+  stageSprite: CONFIGS.imagePlaceHolder,
   stageHeight: 0,
   pokemonList: [],
   nextUrl: ''

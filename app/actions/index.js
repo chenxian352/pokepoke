@@ -12,6 +12,39 @@ export function getPokemonList(nextUrl) {
   defaultParams.append("limit", CONFIGS.limit);
   const url = nextUrl ? nextUrl : (CONFIGS.apiEndpoint + "?" + defaultParams.toString());
 
+  return async (dispatch, getState) => {
+
+    let result = await apiFetch(url);
+
+    const getData = async () => {
+      return await Promise.all(result.results.map(item => fetchAndCombileSinglePokemon(item)))
+    };
+    const fetchAndCombileSinglePokemon = async (item) => {
+      let specs = await apiFetch(item.url);
+      return {...item, specs};
+    };
+
+    let newList = await getData();
+
+    dispatch({
+      type: 'SET_STAGE_SPRITE',
+      payload: newList[0].specs.sprites.front_default
+    });
+
+    dispatch({
+      type: 'SET_POKEMON_LIST',
+      payload: newList
+    });
+
+    dispatch({
+      type: 'SET_NEXT_URL',
+      payload: result.next
+    });
+
+  }
+}
+
+const apiFetch = async (url) => {
   const options = {
     method: "GET",
     header: {
@@ -20,19 +53,7 @@ export function getPokemonList(nextUrl) {
       "dataType": "json"
     }
   };
-  return (dispatch, getState) => {
-    fetch(url, options)
-        .then(response => response.json())
-        .then(result => {
-          dispatch({
-            type: 'SET_POKEMON_LIST',
-            payload: result.results
-          });
-          dispatch({
-            type: 'SET_NEXT_URL',
-            payload: result.next
-          });
-        })
-        .catch( error => console.log(error));
-  }
-}
+  let response = await fetch(url, options);
+  return await response.json();
+};
+
