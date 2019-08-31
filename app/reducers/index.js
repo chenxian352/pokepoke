@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import * as CONFIGS from '../configs'
 
 const initialStates = {
-  stageSprite: CONFIGS.imagePlaceHolder,
+  stagePokemon: {name:"Loading...", specs: {sprites: {front_default: CONFIGS.imagePlaceHolder}}},
   stageHeight: 0,
   pokemonList: [],
   nextUrl: ''
@@ -10,8 +10,8 @@ const initialStates = {
 
 export const mainReducer = (state = initialStates, action) => {
   switch (action.type) {
-    case 'SET_STAGE_SPRITE':
-      return { ...state, stageSprite: action.payload };
+    case 'SET_STAGE_POKEMON':
+      return { ...state, stagePokemon: action.payload };
     case 'SET_STAGE_HEIGHT':
       return { ...state, stageHeight: action.payload };
     case 'SET_POKEMON_LIST':

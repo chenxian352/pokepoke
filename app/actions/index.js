@@ -17,9 +17,9 @@ export function getPokemonList(nextUrl) {
     let result = await apiFetch(url);
 
     const getData = async () => {
-      return await Promise.all(result.results.map(item => fetchAndCombileSinglePokemon(item)))
+      return await Promise.all(result.results.map(item => fetchAndCombineSinglePokemon(item)))
     };
-    const fetchAndCombileSinglePokemon = async (item) => {
+    const fetchAndCombineSinglePokemon = async (item) => {
       let specs = await apiFetch(item.url);
       return {...item, specs};
     };
@@ -27,8 +27,8 @@ export function getPokemonList(nextUrl) {
     let newList = await getData();
 
     dispatch({
-      type: 'SET_STAGE_SPRITE',
-      payload: newList[0].specs.sprites.front_default
+      type: 'SET_STAGE_POKEMON',
+      payload: newList[0]
     });
 
     dispatch({

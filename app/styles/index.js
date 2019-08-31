@@ -1,21 +1,43 @@
 import { StyleSheet } from 'react-native';
 
 const common = {
-  FONT_SIZE_SMALL: 8,
-  FONT_SIZE_REGULAR: 12,
-  FONT_SIZE_MEDIUM: 14,
-  FONT_SIZE_LARGE: 16,
-  COLOR_WHITE: '#ffffff',
   flex_1: {
     flex: 1
   },
-  font_weight_bold: {
-    fontWeight: 'bold'
-  },
-  flex_center: {
+  flexCenter: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
+  },
+  flexRow: {
+    display: "flex",
+    flexDirection: "row"
+  },
+  flexColumn: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  justifySpaceBetween: {
+    justifyContent: "space-between"
+  },
+  backgroundColorPurple: {
+    backgroundColor: "#7057C4"
+  },
+  backgroundColorGreen: {
+    backgroundColor: "#418628"
+  },
+  attributeTag: {
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 6,
+    marginRight: 10,
+    color: "#FFF",
+    fontSize: 9
+  },
+  fontSizeLarge: {
+    fontSize: 24
   }
 };
 
@@ -28,26 +50,31 @@ const sectionSlider = {
   secSliderStage: {
     display: "flex",
     position: "relative",
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     borderRadius: 500,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 10, height: 10 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 15
   },
   secSliderImage: {
     width: 100,
     height: 100
   },
   secSliderArrowButton: {
-    width: 30,
-    ...common.flex_center
+    width: 40,
+    ...common.flexCenter
   }
 };
 
 const sectionPokeList = {
   secPokeList: {
     ...common.flex_1,
-    padding: 30
+    padding: 40
   },
   secPokeListItem: {
     backgroundColor: "#FFF",
@@ -57,6 +84,30 @@ const sectionPokeList = {
     alignItems: "center",
     borderRadius: 10,
     marginBottom: 10
+  }
+};
+
+const sectionSpecs = {
+  secSpecs: {
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 30
+  },
+  secSpecsName: {
+    fontSize: 30,
+    color: "#FFF",
+    textTransform: "capitalize"
+  },
+  secSpecsAttributeSquare: {
+    backgroundColor: "#FFF",
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    paddingLeft: 26,
+    paddingRight: 26,
+    paddingTop: 12,
+    paddingBottom: 12,
   }
 };
 
@@ -109,8 +160,10 @@ const mixins = {
 };
 
 export default StyleSheet.create({
+  ...common,
   ...mixins,
   ...sectionSlider,
   ...sectionPokeList,
+  ...sectionSpecs,
   ...backdrop
 });

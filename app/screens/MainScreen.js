@@ -43,18 +43,41 @@ class HomeScreen extends Component {
         <SafeAreaView style={[styles.safeView]}>
           <View style={styles.secSlider}>
             <TouchableOpacity style={styles.secSliderArrowButton}>
-              <View style={[styles.makeTriangle('left', '10', 'white')]} />
+              <View style={[styles.makeTriangle('left', '20', 'white')]} />
             </TouchableOpacity>
             <View style={[styles.secSliderStage, {height: this.props.stageHeight}]} onLayout={(event) => this.props.setStageHeight(event.nativeEvent.layout.width)}>
-              <Image style={styles.secSliderImage} uri={this.props.stageSprite}/>
+              <Image style={[styles.secSliderImage, {width: "120%", height: "120%"}]} uri={this.props.stagePokemon.specs.sprites.front_default}/>
             </View>
             <TouchableOpacity style={styles.secSliderArrowButton}>
-              <View style={[styles.makeTriangle('right', '10', 'white')]} />
+              <View style={[styles.makeTriangle('right', '20', 'white')]} />
             </TouchableOpacity>
           </View>
-          <ScrollView style={styles.secPokeList}>
-            { this.renderPokemonList() }
-          </ScrollView>
+          <View style={styles.secSpecs}>
+            <View style={styles.flexRow}>
+              <Text style={styles.secSpecsName}>{this.props.stagePokemon.name}</Text>
+            </View>
+            <View style={[styles.flexRow, {paddingTop: 2, paddingBottom: 10}]}>
+              <Text style={[styles.backgroundColorPurple, styles.attributeTag]}>Poison</Text>
+              <Text style={[styles.backgroundColorGreen, styles.attributeTag]}>Grass</Text>
+            </View>
+            <View style={[styles.flexRow, styles.justifySpaceBetween]}>
+              <View style={styles.secSpecsAttributeSquare}>
+                <Text>Base Exp.</Text>
+                <Text style={styles.fontSizeLarge}>{this.props.stagePokemon.specs.base_experience}</Text>
+              </View>
+              <View style={styles.secSpecsAttributeSquare}>
+                <Text>Weight</Text>
+                <Text style={styles.fontSizeLarge}>{this.props.stagePokemon.specs.weight}</Text>
+              </View>
+              <View style={styles.secSpecsAttributeSquare}>
+                <Text>Height</Text>
+                <Text style={styles.fontSizeLarge}>{this.props.stagePokemon.specs.height}</Text>
+              </View>
+            </View>
+          </View>
+          {/*<ScrollView style={styles.secPokeList}>*/}
+          {/*  { this.renderPokemonList() }*/}
+          {/*</ScrollView>*/}
         </SafeAreaView>
       </LinearGradient>
     )
@@ -65,7 +88,7 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    stageSprite: state.mainReducer.stageSprite,
+    stagePokemon: state.mainReducer.stagePokemon,
     stageHeight: state.mainReducer.stageHeight,
     pokemonList: state.mainReducer.pokemonList,
     nextUrl: state.mainReducer.nextUrl
