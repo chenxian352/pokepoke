@@ -83,9 +83,11 @@ class HomeScreen extends Component {
               </View>
             </View>
           </View>
-          <ScrollView style={styles.secPokeList}>
-            { this.renderPokemonList() }
-          </ScrollView>
+          <View style={styles.secPokeList}>
+            <ScrollView>
+              { this.renderPokemonList() }
+            </ScrollView>
+          </View>
         </SafeAreaView>
       </LinearGradient>
     )

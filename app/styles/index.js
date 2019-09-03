@@ -77,7 +77,8 @@ const sectionPokeList = {
   secPokeList: {
     ...common.flex_1,
     padding: 40,
-    paddingTop: 30
+    paddingTop: 30,
+    paddingBottom: 30,
   },
   secPokeListItem: {
     backgroundColor: "#FFF",
