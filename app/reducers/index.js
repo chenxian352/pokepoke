@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import * as CONFIGS from '../configs'
 
 const initialStates = {
   stageHeight: 0,

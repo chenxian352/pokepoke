@@ -12,6 +12,12 @@ export function toggleFavorite (name) {
   }
 }
 
+export function setPokemonID (id) {
+  return (dispatch, getState) => {
+    dispatch({ type: 'SET_CURRENT_ID', payload: id });
+  }
+}
+
 export function nextPokemon () {
   return (dispatch, getState) => {
     const currentID = parseInt(getState().mainReducer.currentPokemonID);

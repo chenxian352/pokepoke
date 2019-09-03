@@ -34,7 +34,8 @@ const common = {
     borderRadius: 10,
     marginRight: 10,
     color: "#FFF",
-    fontSize: 9
+    fontSize: 9,
+    textTransform: "capitalize"
   },
   fontSizeLarge: {
     fontSize: 24
@@ -75,7 +76,8 @@ const sectionSlider = {
 const sectionPokeList = {
   secPokeList: {
     ...common.flex_1,
-    padding: 40
+    padding: 40,
+    paddingTop: 30
   },
   secPokeListItem: {
     backgroundColor: "#FFF",
@@ -92,7 +94,7 @@ const sectionSpecs = {
   secSpecs: {
     paddingLeft: 40,
     paddingRight: 40,
-    paddingBottom: 30
+    paddingTop: 10
   },
   secSpecsName: {
     fontSize: 30,

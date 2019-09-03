@@ -18,13 +18,15 @@ class HomeScreen extends Component {
 
   renderListItem = (pokemon, i) => {
     return (
-        <View style={styles.secPokeListItem} key={'pokemonItem'+i}>
-          <Image style={{height: 50, width: 50}} uri={pokemon.specs ? pokemon.specs.sprites.front_default : CONFIGS.imagePlaceHolder}/>
-          <Text style={{flex: 1}}>{pokemon.name}</Text>
-          <View style={{paddingRight: 20}}>
-            <View style={[styles.makeTriangle('right', '10', '#ccc')]} />
+        <TouchableOpacity onPress={event => this.props.setPokemonID(i)} key={'pokemonItem'+i}>
+          <View style={styles.secPokeListItem}>
+            <Image style={{height: 50, width: 50}} uri={pokemon.specs ? pokemon.specs.sprites.front_default : CONFIGS.imagePlaceHolder}/>
+            <Text style={{flex: 1}}>{pokemon.name}</Text>
+            <View style={{paddingRight: 20}}>
+              <View style={[styles.makeTriangle('right', '10', '#ccc')]} />
+            </View>
           </View>
-        </View>
+        </TouchableOpacity>
     );
   };
 
@@ -62,8 +64,9 @@ class HomeScreen extends Component {
               </TouchableOpacity>
             </View>
             <View style={[styles.flexRow, {paddingTop: 2, paddingBottom: 10}]}>
-              <Text style={[styles.backgroundColorPurple, styles.attributeTag]}>Poison</Text>
-              <Text style={[styles.backgroundColorGreen, styles.attributeTag]}>Grass</Text>
+              { stagePokemon.specs.types ? stagePokemon.specs.types.map(item => {
+                return <Text style={[styles.backgroundColorPurple, styles.attributeTag]} key={"tag"+item.slot}>{item.type.name}</Text>
+              }) : null}
             </View>
             <View style={[styles.flexRow, styles.justifySpaceBetween]}>
               <View style={styles.secSpecsAttributeSquare}>
@@ -88,8 +91,6 @@ class HomeScreen extends Component {
     )
   }
 }
-
-
 
 const mapStateToProps = (state) => {
   return {
