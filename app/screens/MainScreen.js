@@ -8,6 +8,7 @@ import { Image } from "react-native-expo-image-cache";
 import styles from '../styles';
 import * as ActionCreators from '../actions'
 import * as CONFIGS from '../configs'
+import { AntDesign } from '@expo/vector-icons';
 
 class HomeScreen extends Component {
 
@@ -38,23 +39,27 @@ class HomeScreen extends Component {
   };
 
   render() {
+    const stagePokemon = this.props.pokemonList.length > 1 ? this.props.pokemonList[this.props.currentPokemonID] : {name:"Loading...", specs: {sprites: {front_default: CONFIGS.imagePlaceHolder}}};
     return(
       <LinearGradient colors={['#32799D', '#85C2E2']} style={styles.backdrop}>
         <SafeAreaView style={[styles.safeView]}>
           <View style={styles.secSlider}>
-            <TouchableOpacity style={styles.secSliderArrowButton}>
+            <TouchableOpacity style={styles.secSliderArrowButton} onPress={event => this.props.prevPokemon()}>
               <View style={[styles.makeTriangle('left', '20', 'white')]} />
             </TouchableOpacity>
             <View style={[styles.secSliderStage, {height: this.props.stageHeight}]} onLayout={(event) => this.props.setStageHeight(event.nativeEvent.layout.width)}>
-              <Image style={[styles.secSliderImage, {width: "120%", height: "120%"}]} uri={this.props.stagePokemon.specs.sprites.front_default}/>
+              <Image style={[styles.secSliderImage, {width: "120%", height: "120%"}]} uri={stagePokemon.specs.sprites.front_default}/>
             </View>
-            <TouchableOpacity style={styles.secSliderArrowButton}>
+            <TouchableOpacity style={styles.secSliderArrowButton} onPress={event => this.props.nextPokemon()}>
               <View style={[styles.makeTriangle('right', '20', 'white')]} />
             </TouchableOpacity>
           </View>
           <View style={styles.secSpecs}>
-            <View style={styles.flexRow}>
-              <Text style={styles.secSpecsName}>{this.props.stagePokemon.name}</Text>
+            <View style={[styles.flexRow, {alignItems: "center"}]}>
+              <Text style={styles.secSpecsName}>{stagePokemon.name}</Text>
+              <TouchableOpacity onPress={event => this.props.toggleFavorite(stagePokemon.name)}>
+                <AntDesign color="white" style={{marginLeft: 6, fontSize: 18}} name={stagePokemon.favorite ? "star" : "staro"}/>
+              </TouchableOpacity>
             </View>
             <View style={[styles.flexRow, {paddingTop: 2, paddingBottom: 10}]}>
               <Text style={[styles.backgroundColorPurple, styles.attributeTag]}>Poison</Text>
@@ -63,21 +68,21 @@ class HomeScreen extends Component {
             <View style={[styles.flexRow, styles.justifySpaceBetween]}>
               <View style={styles.secSpecsAttributeSquare}>
                 <Text>Base Exp.</Text>
-                <Text style={styles.fontSizeLarge}>{this.props.stagePokemon.specs.base_experience}</Text>
+                <Text style={styles.fontSizeLarge}>{stagePokemon.specs.base_experience}</Text>
               </View>
               <View style={styles.secSpecsAttributeSquare}>
                 <Text>Weight</Text>
-                <Text style={styles.fontSizeLarge}>{this.props.stagePokemon.specs.weight}</Text>
+                <Text style={styles.fontSizeLarge}>{stagePokemon.specs.weight}</Text>
               </View>
               <View style={styles.secSpecsAttributeSquare}>
                 <Text>Height</Text>
-                <Text style={styles.fontSizeLarge}>{this.props.stagePokemon.specs.height}</Text>
+                <Text style={styles.fontSizeLarge}>{stagePokemon.specs.height}</Text>
               </View>
             </View>
           </View>
-          {/*<ScrollView style={styles.secPokeList}>*/}
-          {/*  { this.renderPokemonList() }*/}
-          {/*</ScrollView>*/}
+          <ScrollView style={styles.secPokeList}>
+            { this.renderPokemonList() }
+          </ScrollView>
         </SafeAreaView>
       </LinearGradient>
     )
@@ -88,10 +93,9 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    stagePokemon: state.mainReducer.stagePokemon,
     stageHeight: state.mainReducer.stageHeight,
     pokemonList: state.mainReducer.pokemonList,
-    nextUrl: state.mainReducer.nextUrl
+    currentPokemonID: state.mainReducer.currentPokemonID,
   };
 };
 

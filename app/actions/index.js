@@ -1,8 +1,28 @@
 import * as CONFIGS from '../configs'
 
 export function setStageHeight (height) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({ type: 'SET_STAGE_HEIGHT', payload: height})
+  }
+}
+
+export function toggleFavorite (name) {
+  return (dispatch) => {
+    dispatch({ type: 'TOGGLE_FAVORITE', payload: name });
+  }
+}
+
+export function nextPokemon () {
+  return (dispatch, getState) => {
+    const currentID = parseInt(getState().mainReducer.currentPokemonID);
+    dispatch({ type: 'SET_CURRENT_ID', payload: (currentID+1) });
+  }
+}
+
+export function prevPokemon () {
+  return (dispatch, getState) => {
+    const currentID = parseInt(getState().mainReducer.currentPokemonID);
+    dispatch({ type: 'SET_CURRENT_ID', payload: (currentID-1 < 0 ? 0 : currentID-1) });
   }
 }
 
@@ -21,24 +41,14 @@ export function getPokemonList(nextUrl) {
     };
     const fetchAndCombineSinglePokemon = async (item) => {
       let specs = await apiFetch(item.url);
-      return {...item, specs};
+      return {...item, specs, favorite: false};
     };
 
     let newList = await getData();
 
     dispatch({
-      type: 'SET_STAGE_POKEMON',
-      payload: newList[0]
-    });
-
-    dispatch({
       type: 'SET_POKEMON_LIST',
       payload: newList
-    });
-
-    dispatch({
-      type: 'SET_NEXT_URL',
-      payload: result.next
     });
 
   }

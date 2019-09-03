@@ -31,7 +31,7 @@ const common = {
     paddingBottom: 2,
     paddingLeft: 10,
     paddingRight: 10,
-    borderRadius: 6,
+    borderRadius: 10,
     marginRight: 10,
     color: "#FFF",
     fontSize: 9
@@ -56,10 +56,11 @@ const sectionSlider = {
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 15
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 15,
+    overflow: "hidden"
   },
   secSliderImage: {
     width: 100,
