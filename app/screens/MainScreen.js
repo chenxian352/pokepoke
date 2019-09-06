@@ -82,6 +82,15 @@ class HomeScreen extends Component {
                 <Text style={styles.fontSizeLarge}>{stagePokemon.specs.height}</Text>
               </View>
             </View>
+            <View style={[styles.flexRow, styles.secAbility]}>
+              <Text style={[styles.fontWeightBold, styles.colorWhite, {marginRight: 10}]}>Ability</Text>
+              {
+                stagePokemon.specs.abilities ?
+                stagePokemon.specs.abilities.map((item, index) => {
+                  return <Text key={"ability"+index} style={[styles.colorWhite, {marginRight: 5, textTransform: "capitalize"}]}>{item.ability.name}</Text>
+                }) : null
+              }
+            </View>
           </View>
           <View style={styles.secPokeList}>
             <ScrollView>

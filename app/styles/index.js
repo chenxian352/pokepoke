@@ -31,14 +31,21 @@ const common = {
     paddingBottom: 2,
     paddingLeft: 10,
     paddingRight: 10,
-    borderRadius: 10,
+    borderRadius: 4,
     marginRight: 10,
     color: "#FFF",
     fontSize: 9,
-    textTransform: "capitalize"
+    textTransform: "capitalize",
+    overflow: "hidden"
   },
   fontSizeLarge: {
     fontSize: 24
+  },
+  fontWeightBold: {
+    fontWeight: "bold"
+  },
+  colorWhite: {
+    color: "#FFF"
   }
 };
 
@@ -115,6 +122,17 @@ const sectionSpecs = {
   }
 };
 
+const sectionAbility = {
+  secAbility: {
+    backgroundColor: "#C48C34",
+    borderRadius: 12,
+    display: "flex",
+    padding: 10,
+    paddingLeft: 15,
+    marginTop: 20
+  }
+};
+
 const backdrop = {
   backdrop: {
     ...common.flex_1
@@ -169,5 +187,6 @@ export default StyleSheet.create({
   ...sectionSlider,
   ...sectionPokeList,
   ...sectionSpecs,
+  ...sectionAbility,
   ...backdrop
 });
