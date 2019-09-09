@@ -67,8 +67,7 @@ const sectionSlider = {
     shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
-    elevation: 15,
-    overflow: 'hidden'
+    elevation: 15
   },
   secSliderImage: {
     width: 100,
@@ -76,6 +75,7 @@ const sectionSlider = {
   },
   secSliderArrowButton: {
     width: 40,
+    zIndex: 9,
     ...common.flexCenter
   }
 }
@@ -83,10 +83,16 @@ const sectionSlider = {
 const sectionPokeList = {
   secPokeList: {
     ...common.flex_1,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     paddingLeft: 40,
     paddingRight: 40,
-    paddingBottom: 30,
-    height: 100
+    paddingTop: 10,
+    position: 'absolute',
+    height: 300,
+    left: 0,
+    right: 0
   },
   secPokeListItem: {
     backgroundColor: '#FFF',
@@ -96,6 +102,12 @@ const sectionPokeList = {
     alignItems: 'center',
     borderRadius: 10,
     marginBottom: 10
+  },
+  secPokeListTrigger: {
+    width: '100%',
+    backgroundColor: '#eee',
+    borderRadius: 20,
+    height: 8
   }
 }
 
@@ -143,7 +155,7 @@ const sectionStatus = {
     paddingLeft: 15,
     paddingRight: 15,
     marginTop: 20,
-    marginBottom: 40
+    marginBottom: 10
   }
 }
 

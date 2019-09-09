@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, SafeAreaView, TouchableOpacity, Text, ScrollView } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity, Text, ScrollView, Animated } from 'react-native'
 import { createSwitchNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -9,8 +9,14 @@ import styles from '../styles'
 import * as ActionCreators from '../actions'
 import * as CONFIGS from '../configs'
 import { AntDesign } from '@expo/vector-icons'
+import { TouchableWithoutFeedback } from 'react-native-web'
 
 class HomeScreen extends Component {
+
+  state = {
+    pokemonListAnimatedBottom: new Animated.Value(-200),
+    pokemonListExpanded: false
+  }
 
   componentDidMount() {
     this.props.getPokemonList()
@@ -41,13 +47,21 @@ class HomeScreen extends Component {
     }
   }
 
+  getTypeTagColor = item => {
+    switch (item.type.name) {
+      case 'poison':
+        return styles.backgroundColorPurple
+      case 'grass':
+      default:
+        return styles.backgroundColorGreen
+    }
+  }
   renderTypes = stagePokemon => {
     if (!stagePokemon.specs.types) {
       return null
     }
-
     return stagePokemon.specs.types.map(item => {
-      return <Text style={ [styles.backgroundColorPurple, styles.attributeTag] } key={ 'tag' + item.slot }>{ item.type.name }</Text>
+      return <Text style={ [this.getTypeTagColor(item), styles.attributeTag] } key={ 'tag' + item.slot }>{ item.type.name }</Text>
     })
   }
 
@@ -55,10 +69,19 @@ class HomeScreen extends Component {
     <View style={ [styles.flexRow, { alignItems: 'center' }] } key={ 'stat' + i }>
       <Text style={ [styles.colorWhite, { marginRight: 10, textTransform: 'capitalize', width: 110 }] }>{ stat.stat.name }</Text>
       <View style={ { borderWidth: 1, borderColor: '#ccc', flex: 1, height: 12 } }>
-        <View style={ { height: '100%', width: stat.base_stat + '%', backgroundColor: '#e6eff8' } }/>
+        <View style={ { height: '100%', width: stat.base_stat / 190 * 100 + '%', backgroundColor: '#e6eff8' } }/>
       </View>
     </View>
   )
+
+  togglePokemonList = () => {
+    if (!this.state.pokemonListExpanded) {
+      Animated.spring(this.state.pokemonListAnimatedBottom, { toValue: -100 }).start()
+    } else {
+      Animated.spring(this.state.pokemonListAnimatedBottom, { toValue: -200 }).start()
+    }
+    this.setState({ pokemonListExpanded: !this.state.pokemonListExpanded })
+  }
 
   render() {
     const stagePokemon = this.props.pokemonList.length > 1 ? this.props.pokemonList[this.props.currentPokemonID] : { name: 'Loading...', specs: { sprites: { front_default: CONFIGS.imagePlaceHolder }}}
@@ -104,12 +127,10 @@ class HomeScreen extends Component {
             </View>
             <View style={ [styles.flexRow, styles.secAbility] }>
               <Text style={ [styles.fontWeightBold, styles.colorWhite, { marginRight: 10 }] }>Ability</Text>
-              {
-                stagePokemon.specs.abilities ?
-                  stagePokemon.specs.abilities.map((item, index) => {
-                    return <Text key={ 'ability' + index } style={ [styles.colorWhite, { marginRight: 5, textTransform: 'capitalize' }] }>{ item.ability.name }</Text>
-                  }) : null
-              }
+              { stagePokemon.specs.abilities ?
+                stagePokemon.specs.abilities.map((item, index) => {
+                  return <Text key={ 'ability' + index } style={ [styles.colorWhite, { marginRight: 5, textTransform: 'capitalize' }] }>{ item.ability.name }</Text>
+                }) : null }
             </View>
             <View style={ styles.secStats }>
               <Text style={ [styles.fontWeightBold, styles.colorWhite, { marginRight: 10 }] }>Stats</Text>
@@ -118,12 +139,16 @@ class HomeScreen extends Component {
                 : null }
             </View>
           </ScrollView>
-
-          <View style={ styles.secPokeList }>
-            <View>
+          <Animated.View style={ [styles.secPokeList, { bottom: this.state.pokemonListAnimatedBottom }] }>
+            <TouchableWithoutFeedback onPress={ this.togglePokemonList } >
+              <View style={ { paddingTop: 10, paddingBottom: 20 } } >
+                <View style={ styles.secPokeListTrigger } />
+              </View>
+            </TouchableWithoutFeedback>
+            <ScrollView>
               { this.renderPokemonList() }
-            </View>
-          </View>
+            </ScrollView>
+          </Animated.View>
         </SafeAreaView>
       </LinearGradient>
     )
